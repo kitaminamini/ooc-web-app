@@ -11,6 +11,7 @@
     </script>
     <body>
         <h2>Welcome, ${username}</h2>
+        <p>Can I call you ${loginNickname}?</p>
         <p>${error}</p>
         <h2>User List</h2>
         <table width="59%" border="1">

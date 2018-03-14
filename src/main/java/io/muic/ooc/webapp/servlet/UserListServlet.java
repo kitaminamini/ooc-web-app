@@ -53,7 +53,18 @@ public class UserListServlet extends HttpServlet implements Routable {
             if (securityService.isAuthorized(request)){
                 List<User> ulist = makeUserList();
                 System.out.println(ulist);
+
+                String username = (String) request.getSession().getAttribute("username");
+                JDBC jdbc = new JDBC();
+                jdbc.connect();
+                ResultSet resultSet =jdbc.getUserInfo(username);
+                resultSet.next();
+                String nickname = resultSet.getString("nickname");
+                jdbc.getConnection().close();
+
+                request.setAttribute("loginNickname", nickname);
                 request.setAttribute("users",ulist);
+
                 RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/userlist.jsp");
                 rd.include(request, response);
             }
